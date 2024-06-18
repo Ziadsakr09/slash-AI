@@ -39,11 +39,12 @@ if uploaded_file is not None:
         for i in range(len(results[0].boxes.cpu().numpy().cls)):
             components.append(results[0].names[results[0].boxes.cpu().numpy().cls[i]])
 
-        #Count the number of each detected component
-        counts = Counter(components)
-        formatted_result = ", ".join([f"{count} {pluralize(component, count)}" for component, count in counts.items()])
-        st.write("Detected Components:")
-        st.write(formatted_result)
-    else:
-        
-        st.write("No components detected.")
+        if components:
+            #Count the number of each detected component
+            counts = Counter(components)
+            formatted_result = ", ".join([f"{count} {pluralize(component, count)}" for component, count in counts.items()])
+            st.write("Detected Components:")
+            st.write(formatted_result)
+        else:
+            st.write("No components detected.")   
+    
